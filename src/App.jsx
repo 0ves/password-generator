@@ -14,8 +14,8 @@ function App() {
   // copy password to Clipboard
   const copyPassword = useCallback(()=>{
    
+    passwordRef.current?.select();
     window.navigator.clipboard.writeText(password)
-    inputRef.current.focus()
 
   },[password])
 
@@ -87,7 +87,7 @@ function App() {
   return (
     <>
       <div className="flex flex-col justify-center items-center">
-        <h1 className="text-5xl   text-white p-4 pt-5 m-8 ">asslamualikum</h1>
+        <h1 className="text-5xl   text-white p-4 pt-5 m-8 ">Password Generator</h1>
 
         <div className=" text-center pt-10 max-w-md w-full bg-white p-4 rounded-md shadow-md">
           {/* <h1 className=" text-2xl bg-slate-200 m-4 p-1 rounded-md  "
