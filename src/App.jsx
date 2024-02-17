@@ -1,15 +1,27 @@
 
 import { useCallback, useEffect, useState ,useRef } from "react";
 import Button from "./Component/Button";
+import ThemeBtn from './Component/ThemeBtn'
+// import useTheme from '../Context/theme';
+import { ThemeProvider } from "./contexts/theme";
 
 function App() {
-  const [NumberAllow, setNumallow] = useState(false);
+  const [NumberAllow, setNumllow] = useState(false);
   const [CharAllow, setCharallow] = useState(false);
   const [password, setPassword] = useState("");
   const [range, setrange] = useState(8);
   
   const passwordRef = useRef(null)
 
+  const [themeMode, setThemeMode] = useState("dark")
+
+  const lightTheme = () => {
+    setThemeMode("light")
+  }
+
+  const darkTheme = () => {
+    setThemeMode("dark")
+  }
 
   // copy password to Clipboard
   const copyPassword = useCallback(()=>{
@@ -28,11 +40,11 @@ function App() {
     const symbol_string = "!@#$%^&*()-_=+[{]};:'\",<.>/?";
 
     let data = alpha_string;
-
+    
     if (NumberAllow) data += number_string;
     if (CharAllow) data += symbol_string;
 
-    // console.log(data);
+   
     return data;
   }
 
@@ -73,34 +85,43 @@ function App() {
     // }
 
   useEffect(() => {
+    document.querySelector('html').classList.remove("light" , "dark")
+    document.querySelector('html').classList.add(themeMode)
     gen();
-  }, [range, CharAllow, NumberAllow, setPassword]);
+  }, [range, CharAllow, NumberAllow, setPassword , themeMode]);
 
   
   const toggleNumber = () => {
-    setNumallow((prev) => !prev);
+    setNumllow((prev) => !prev);
   };
   const toggleChar = () => {
     setCharallow((prev) => !prev);
   };
 
   return (
-    <>
-      <div className="flex flex-col justify-center items-center">
-        <h1 className="text-5xl   text-white p-4 pt-5 m-8 ">Password Generator</h1>
+    <ThemeProvider value={{themeMode , darkTheme ,lightTheme,toggleNumber,toggleChar}}  >
+      <div  className="p-4 bg-white h-screen dark:bg-black">
 
-        <div className=" text-center pt-10 max-w-md w-full bg-white p-4 rounded-md shadow-md">
+        <ThemeBtn />
+     
+      <div className="flex flex-col mt-4 justify-center items-center bg-white  dark:bg-black">
+
+        <h1 className="text-5xl  text-black p-4 pt-5 m-8  dark:text-white ">Password Generator</h1>
+
+        <div className=" text-center pt-10 max-w-md w-full bg-black p-4 rounded-md shadow-md dark:bg-white ">
           {/* <h1 className=" text-2xl bg-slate-200 m-4 p-1 rounded-md  "
           ref={passwordRef}
           >
             {password}
           </h1> */}
 
-          <input type="text" value={password} readOnly
+          <input 
+           className=" rounded-md hover:bg-slate-200 "
+          type="text" value={password} readOnly
            ref={passwordRef}/>
 
           {/* butotn */}
-          <button className="text-white bg-black p-2 m-2 px-6 rounded-md font-mono font-light"
+          <button className="text-black bg-white p-2 m-2 px-6 rounded-md font-mono font-light dark:bg-black dark:text-white"
           onClick={copyPassword}
           >
             copy
@@ -122,13 +143,14 @@ function App() {
               id=""
             />
             
-            <Button title="Number" callback={toggleNumber} />
+            <Button title="Number" isNum={true}/>
 
-            <Button title="Char" callback={toggleChar} value={NumberAllow} />
+            <Button title="Char" />
           </div>
         </div>
       </div>
-    </>
+      </div>
+    </ThemeProvider>
   );
 }
 
