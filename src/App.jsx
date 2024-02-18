@@ -56,15 +56,15 @@ function App() {
   
  const gen= useCallback(()=> {
     let data = strSelector();
-    // console.log(data);
+
     const digi = data.length;
     let pass = "";
     for (let i = 0; i < range; i++) {
       let val = randomNum(digi);
-      // console.log(val);
+      
       pass += data[val];
     }
-    // console.log(pass);
+    
 
     setPassword(pass);
   }, [NumberAllow , setPassword,CharAllow ,strSelector,range , setrange ])
@@ -109,11 +109,7 @@ function App() {
         <h1 className="text-5xl  text-black p-4 pt-5 m-8  dark:text-white ">Password Generator</h1>
 
         <div className=" text-center pt-10 max-w-md w-full bg-black p-4 rounded-md shadow-md dark:bg-white ">
-          {/* <h1 className=" text-2xl bg-slate-200 m-4 p-1 rounded-md  "
-          ref={passwordRef}
-          >
-            {password}
-          </h1> */}
+         
 
           <input 
            className=" rounded-md hover:bg-slate-200 "
