@@ -51,7 +51,7 @@ function toggle(){
           </span>
         </label>
 
-        <label className="mt-px font-light text-white cursor-pointer select-none dark:text-gray-700">
+        <label className="mt-px font-light text-white cursor-pointer select-none  dark:text-black">
           {title}
         </label>
       </div>
