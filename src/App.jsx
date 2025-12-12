@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState, useRef } from "react";
 import Button from "./Component/Button";
 import ThemeBtn from "./Component/ThemeBtn";
-// import useTheme from '../Context/theme';
 import { ThemeProvider } from "./contexts/theme";
 
 function App() {
